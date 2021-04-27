@@ -1,13 +1,14 @@
 const Express = require('express');
 const BodyParser = require('body-parser');
 const Mongoose = require('mongoose');
+const ErrorHandler = require('../middleware/errorHandler');
+const Router = require('../middleware/router');
 require('dotenv').config();
-
-const Router = require('./router/router');
 
 const app = Express();
 
 app.use(BodyParser.json());
+app.use(ErrorHandler);
 
 app.use('/', Router);
 
@@ -18,5 +19,8 @@ app.use('/', Router);
     useFindAndModify: false,
     useCreateIndex: true,
   });
-  app.listen(8000);
+  app.listen(8080 => {
+    console.log('listening on *${port}');
+  });
+
 })();
